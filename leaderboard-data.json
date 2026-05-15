@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-15T14:44:33-04:00",
+  "generated_at": "2026-05-15T15:39:42-04:00",
   "row_count": 38,
   "rows": [
     {
@@ -60,9 +60,9 @@
       "id": "165",
       "location": "LGA",
       "name": "JALOL A",
-      "sales_amount": 22320.37,
+      "sales_amount": 21630.37,
       "sales_rank": 7,
-      "sales_yld_amount": 30.66,
+      "sales_yld_amount": 30.68,
       "date": "5.14.2026"
     },
     {
