@@ -1,0 +1,809 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Leaderboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap">
+  <style>
+    :root{
+      --bg:#edf1f5;
+      --surface:#ffffff;
+      --surface-2:#f6f8fb;
+      --surface-3:#f1f5f9;
+      --stroke:#dbe4ee;
+      --stroke-strong:#c8d4e2;
+      --text:#1d2435;
+      --muted:#667085;
+      --muted-2:#8a94a6;
+      --accent:#0d1ca4;
+      --accent-soft:rgba(13, 28, 164, 0.08);
+      --gold:#b98926;
+      --gold-soft:rgba(185, 137, 38, 0.10);
+      --silver:#7c8799;
+      --silver-soft:rgba(124, 135, 153, 0.10);
+      --bronze:#a96b44;
+      --bronze-soft:rgba(169, 107, 68, 0.10);
+      --up:#0f9d58;
+      --up-soft:rgba(15, 157, 88, 0.10);
+      --down:#d93025;
+      --down-soft:rgba(217, 48, 37, 0.10);
+      --flat:#637083;
+      --flat-soft:rgba(99, 112, 131, 0.10);
+      --shadow:0 18px 60px rgba(15, 23, 42, 0.08);
+      --shell-radius:25px;
+      --row-radius:22px;
+      --header-h:7.6vh;
+      --row-gap:.75vh;
+      --row-pad-y:1.05vh;
+      --row-pad-x:.4vw;
+      --head-size:.86vh;
+      --name-size:2.15vh;
+      --meta-size:1.36vh;
+      --value-size:2vh;
+      --chip-size:1.2vh;
+      --rank-size:1.5vh;
+      --rank-pill-h:4.6vh;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%;overflow:hidden}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family:"General Sans", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
+    }
+
+    body[data-density="compact"]{
+      --row-gap:.55vh;
+      --row-pad-y:.8vh;
+      --name-size:1.95vh;
+      --meta-size:1.22vh;
+      --value-size:1.82vh;
+      --chip-size:1.2vh;
+      --rank-pill-h:4.1vh;
+    }
+
+    body[data-density="dense"]{
+      --row-gap:.4vh;
+      --row-pad-y:.6vh;
+      --name-size:2vh;
+      --meta-size:1.5vh;
+      --value-size:2vh;
+      --chip-size:1.2vh;
+      --rank-pill-h:3vh;
+    }
+
+    .screen{
+      width:100vw;
+      height:100vh;
+      padding:2vh 2vw;
+    }
+
+    .shell{
+      width:100%;
+      height:100%;
+      background:var(--surface);
+      border:1px solid rgba(200, 212, 226, 0.8);
+      border-radius:var(--shell-radius);
+      box-shadow:var(--shadow);
+      display:grid;
+      grid-template-rows:auto 1fr;
+      overflow:hidden;
+    }
+
+    .header{
+      display:grid;
+      grid-template-columns:minmax(0, 1fr) auto;
+      gap:1.2vw;
+      align-items:center;
+      padding:2vh 1.2vw 1.4vh;
+      border-bottom:1px solid rgba(219, 228, 238, 0.9);
+      min-height:var(--header-h);
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      min-width:0;
+    }
+
+    .brand svg{
+      display:block;
+      height:3.5vh;
+      width:auto;
+      max-width:17vw;
+    }
+
+    .header-controls{
+      display:flex;
+      align-items:center;
+      justify-content:flex-end;
+      flex-wrap:wrap;
+      gap:.65vw;
+    }
+
+    .meta-chip,
+    .picker{
+      height:4.6vh;
+      border-radius:999px;
+      border:1px solid var(--stroke);
+      background:var(--surface-2);
+      color:var(--text);
+      display:inline-flex;
+      align-items:center;
+      gap:.48vw;
+      padding:0 1vw;
+      font-size:1.18vh;
+      font-weight:600;
+      letter-spacing:.02em;
+      white-space:nowrap;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.8);
+    }
+
+    .meta-chip span{
+      color:var(--muted);
+      font-weight:500;
+    }
+
+    .meta-chip strong{
+      color:var(--text);
+      font-weight:600;
+    }
+
+    .meta-chip.live[data-state="loading"]{
+      border-color:#d7e3f3;
+      background:#f4f8ff;
+    }
+
+    .meta-chip.live[data-state="error"]{
+      border-color:#f0cccc;
+      background:#fff6f5;
+    }
+
+    .meta-chip.live[data-state="live"]{
+      border-color:#d6e8db;
+      background:#f5fbf7;
+    }
+
+    .picker{
+      appearance:auto;
+      -webkit-appearance:auto;
+      cursor:pointer;
+      min-width:10.5vw;
+      padding-right:1vw;
+      background-color:var(--surface-2);
+      outline:none;
+    }
+
+    .picker option{color:#101828}
+
+    .table-wrap{
+      min-height:0;
+      display:grid;
+      grid-template-rows:auto 1fr;
+      padding:1.35vh 1.2vw 1.2vw;
+      gap:.5vh;
+    }
+
+    .table-head,
+    .table-row{
+      display:grid;
+      grid-template-columns:8vw minmax(0, 2.45fr) minmax(0, 1.15fr) minmax(0, .95fr) minmax(0, .9fr) minmax(0, 1.05fr);
+      column-gap:1vw;
+      align-items:center;
+    }
+
+    .table-head{
+      padding:0 1.15vw .55vh;
+      color:var(--muted-2);
+      font-size:var(--head-size);
+      font-weight:600;
+      text-transform:uppercase;
+      letter-spacing:.16em;
+    }
+
+    .table-head > div:last-child,
+    .table-head > div:nth-last-child(2){
+      text-align:right;
+    }
+
+    .table-body{
+      min-height:0;
+      height:100%;
+      display:grid;
+      gap:var(--row-gap);
+      align-content:stretch;
+    }
+
+    .table-row{
+      align-content: center;
+      position:relative;
+      min-height:0;
+      padding:var(--row-pad-y) var(--row-pad-x);
+      border-radius:var(--row-radius);
+      border:1px solid var(--stroke);
+      background:var(--surface-2);
+      box-shadow:0 8px 24px rgba(15,23,42,.04);
+      overflow:hidden;
+      isolation:isolate;
+    }
+
+    .table-row::before{
+      content:"";
+      position:absolute;
+      inset:0 auto 0 0;
+      width:var(--fill, 0%);
+      background:rgba(40, 42, 65, 0.05);
+      z-index:0;
+    }
+
+    .table-row > *{
+      position:relative;
+      z-index:1;
+      min-width:0;
+    }
+
+    .table-row.rank-1{
+      background:#fffaf0;
+      border-color:#ecd8aa;
+    }
+
+    .table-row.rank-1::before{background:var(--gold-soft)}
+
+    .table-row.rank-2{
+      background:#e4f1fe;
+      border-color:#d8dee7;
+    }
+
+    .table-row.rank-2::before{background:var(--silver-soft)}
+
+    .table-row.rank-3{
+      background:#fff8f4;
+      border-color:#e5cfc0;
+    }
+
+    .table-row.rank-3::before{background:var(--bronze-soft)}
+
+    .col-rank{
+      display:flex;
+      align-items:center;
+    }
+
+    .rank-pill{
+      min-width:5.4vw;
+      height:var(--rank-pill-h);
+      padding:0 1vw;
+      border-radius:999px;
+      border:1px solid var(--stroke-strong);
+      background:#fff;
+      color:var(--muted);
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      font-size:var(--rank-size);
+      font-weight:700;
+      letter-spacing:.08em;
+      font-variant-numeric:tabular-nums;
+    }
+
+    .table-row.rank-1 .rank-pill{
+      color:var(--gold);
+      border-color:rgba(185, 137, 38, 0.24);
+      background:rgba(255,255,255,0.92);
+    }
+
+    .table-row.rank-2 .rank-pill{
+      color:var(--silver);
+      border-color:rgba(124, 135, 153, 0.2);
+      background:rgba(255,255,255,0.92);
+    }
+
+    .table-row.rank-3 .rank-pill{
+      color:var(--bronze);
+      border-color:rgba(169, 107, 68, 0.2);
+      background:rgba(255,255,255,0.92);
+    }
+
+    .col-employee{
+      display:flex;
+      flex-direction:column;
+      gap:.18vh;
+      min-width:0;
+    }
+
+    .emp-name{
+      font-size:var(--name-size);
+      line-height:1.05;
+      font-weight:600;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    .col-location,
+    .col-yld{
+      color:var(--muted);
+      font-size:var(--meta-size);
+      font-weight:500;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    .col-move{
+      display:flex;
+      justify-content:center;
+      min-width:0;
+    }
+
+    .move-chip{
+      min-width:6.8vw;
+      height:3.8vh;
+      padding:0 .95vw;
+      border-radius:999px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:.36vw;
+      font-size:var(--chip-size);
+      font-weight:500;
+      letter-spacing:.06em;
+      border:1px solid transparent;
+      background:var(--surface-3);
+      color:var(--flat);
+      white-space:nowrap;
+    }
+
+    .move-chip.up{
+      color:var(--up);
+      background:var(--up-soft);
+      border-color:rgba(15, 157, 88, 0.14);
+    }
+
+    .move-chip.down{
+      color:var(--down);
+      background:var(--down-soft);
+      border-color:rgba(217, 48, 37, 0.12);
+    }
+
+    .move-chip.flat{
+      color:var(--flat);
+      background:var(--flat-soft);
+      border-color:rgba(99, 112, 131, 0.10);
+    }
+
+    .col-yld{
+      text-align:right;
+      font-variant-numeric:tabular-nums;
+      white-space:nowrap;
+    }
+
+    .col-sales{
+      color:var(--accent);
+      font-size:var(--value-size);
+      font-weight:600;
+      letter-spacing:-.01em;
+      font-variant-numeric:tabular-nums;
+      white-space:nowrap;
+    }
+
+    .status{
+      height:100%;
+      display:grid;
+      place-items:center;
+      border-radius:28px;
+      border:1px solid var(--stroke);
+      background:var(--surface-2);
+      color:var(--muted);
+      font-size:1.35vh;
+      font-weight:600;
+      letter-spacing:.02em;
+      text-align:center;
+      padding:2vh;
+    }
+
+    @media (max-width: 1280px){
+      .header{
+        grid-template-columns:1fr;
+        align-items:flex-start;
+      }
+
+      .header-controls{
+        width:100%;
+        justify-content:flex-start;
+      }
+
+      .table-head,
+      .table-row{
+        grid-template-columns:7vw minmax(0, 2.2fr) minmax(0, 1fr) minmax(0, .95fr) minmax(0, .85fr) minmax(0, .95fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="screen">
+    <main class="shell">
+      <header class="header">
+        <div class="brand" aria-label="Logo">
+          <svg width="142" height="32" viewBox="0 0 142 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M130.396 31.2684C123.408 31.2684 118.793 26.5361 118.793 20.2543C118.793 13.805 123.581 9.24023 130.44 9.24023C137.6 9.24023 142 14.0982 142 20.1706C142 26.4942 137.514 31.2684 130.396 31.2684ZM130.396 26.5361C134.192 26.5361 136.608 23.8977 136.608 20.2962C136.608 16.4852 134.106 13.9725 130.44 13.9725C126.73 13.9725 124.185 16.6109 124.185 20.2543C124.185 24.0234 126.687 26.5361 130.396 26.5361Z" fill="#0d1ca4"></path><path d="M105 30.841L96.3301 9.65039H102.283L107.804 25.0198H107.977L113.455 9.65039H119.235L110.694 30.841H105Z" fill="#0d1ca4"></path><path d="M90.9798 6.46979C89.0818 6.46979 87.874 5.21343 87.874 3.62205C87.874 1.98878 89.125 0.732422 90.9798 0.732422C92.8346 0.732422 94.0424 1.9469 94.0424 3.58017C94.0424 5.21343 92.8777 6.46979 90.9798 6.46979ZM88.3054 30.8431V9.65257H93.6542V30.8431H88.3054Z" fill="#0d1ca4"></path><path d="M82.2239 9.24023C83.4749 9.24023 84.3807 9.40775 84.9415 9.53339V14.2238L84.7689 14.3075C84.2082 14.2657 83.4317 14.1819 82.3533 14.1819C79.0751 14.1819 77.0908 15.8571 77.0908 19.668V30.8496H71.7852V9.65902H73.8557L75.9262 12.8418C76.6163 10.9573 78.8594 9.24023 82.2239 9.24023Z" fill="#0d1ca4"></path><path d="M54.1118 1.19336C63.5153 1.19336 68.8641 7.26576 68.8641 15.9765C68.8641 24.9385 63.3859 30.8434 53.9824 30.8434H42.1201V1.19336H54.1118ZM53.4216 25.8599C59.6331 25.8599 63.1271 21.9233 63.1271 15.9346C63.1271 10.1135 59.59 6.17691 53.3785 6.17691H47.5983V25.8599H53.4216Z" fill="#0d1ca4"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M6.05851 0.742188C2.71249 0.742188 0 3.45467 0 6.80069V25.2008C0 26.4524 0.379551 27.6154 1.02984 28.5809L14.1734 16.7246C14.5524 16.3827 14.5127 15.7765 14.0923 15.487L4.07902 8.59179C3.44011 8.15182 3.75147 7.15069 4.52721 7.15069H16.0054C16.242 7.15069 16.4733 7.22153 16.6693 7.35409L28.5771 15.4054C29.0682 15.7375 29.1228 16.4401 28.6888 16.844L13.2018 31.2593H26.595C29.941 31.2593 32.6535 28.5468 32.6535 25.2008V6.80069C32.6535 3.45467 29.941 0.742188 26.595 0.742188H6.05851Z" fill="#0d1ca4"></path></svg>
+        </div>
+
+        <div class="header-controls">
+          <div class="meta-chip"><span>Compare</span><strong id="compareDate">—</strong></div>
+          <div class="meta-chip live" id="connectionState" data-state="loading"><span>Updated</span><strong id="refreshStamp">Loading</strong></div>
+          <select id="datePicker" class="picker" aria-label="Select leaderboard date">
+            <option value="">Loading…</option>
+          </select>
+        </div>
+      </header>
+
+      <section class="table-wrap">
+        <div class="table-head">
+          <div>Rank</div>
+          <div>Name</div>
+          <div>Location</div>
+          <div>Sales</div>
+          <div style="text-align: -webkit-center;">Move</div>
+          <div>YLD</div>
+        </div>
+        <div class="table-body" id="overallTable">
+          <div class="status">Loading…</div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const CONFIG = {
+      dataUrl: 'leaderboard-data.json',
+      cacheMs: 120000,
+      autoRefreshMs: 125000
+    };
+
+    const $ = (s, r=document) => r.querySelector(s);
+    const STATE = {
+      dateKey: '',
+      data: null,
+      timer: null,
+      initialized: false,
+      cache: null,
+      cacheAt: 0
+    };
+
+    function escHtml(s){
+      return String(s ?? '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+    }
+
+    function cleanText(v){ return String(v ?? '').trim(); }
+
+    function getDataUrl(){
+      try{
+        const u = new URL(window.location.href);
+        return cleanText(u.searchParams.get('data')) || CONFIG.dataUrl;
+      }catch(_){ return CONFIG.dataUrl; }
+    }
+
+    function setConnectionState(state, label){
+      const wrap = $('#connectionState');
+      const stamp = $('#refreshStamp');
+      if(wrap) wrap.dataset.state = state || 'loading';
+      if(stamp) stamp.textContent = label || '—';
+    }
+
+    function getRequestedDate(){
+      try{
+        const u = new URL(window.location.href);
+        return normalizeDateKey(u.searchParams.get('date') || '');
+      }catch(_){ return ''; }
+    }
+
+    function ensureUrlState(){
+      try{
+        const u = new URL(window.location.href);
+        if(STATE.dateKey) u.searchParams.set('date', STATE.dateKey);
+        else u.searchParams.delete('date');
+        history.replaceState({}, '', u.toString());
+      }catch(_){ }
+    }
+
+    function setDateOptions(dates, selectedKey){
+      const select = $('#datePicker');
+      if(!select) return;
+      const list = Array.isArray(dates) ? dates : [];
+      if(!list.length){
+        select.innerHTML = '<option value="">No dates</option>';
+        select.disabled = true;
+        return;
+      }
+      select.disabled = false;
+      select.innerHTML = list.map(d => `<option value="${escHtml(d)}">${escHtml(labelDate(d))}</option>`).join('');
+      select.value = list.includes(selectedKey) ? selectedKey : list[0];
+    }
+
+    function bindPickers(){
+      const datePicker = $('#datePicker');
+      if(datePicker && datePicker.dataset.bound !== '1'){
+        datePicker.dataset.bound = '1';
+        datePicker.addEventListener('change', () => {
+          const nextDate = cleanText(datePicker.value);
+          if(nextDate === STATE.dateKey) return;
+          loadLeaderboard({ dateKey: nextDate, showLoading: false, forceRefresh: false });
+        });
+      }
+    }
+
+    function toNumber(v){
+      if (typeof v === 'number') return Number.isFinite(v) ? v : NaN;
+      const s = String(v ?? '').trim();
+      if(!s) return NaN;
+      let x = s.replace(/\s+/g, '');
+      if (x.includes(',') && x.includes('.')) {
+        if (x.lastIndexOf(',') > x.lastIndexOf('.')) x = x.replace(/\./g,'').replace(/,/g,'.');
+        else x = x.replace(/,/g,'');
+      } else if (x.includes(',')) {
+        if (/\,\d{1,4}$/.test(x)) x = x.replace(/,/g,'.');
+        else x = x.replace(/,/g,'');
+      }
+      x = x.replace(/[^0-9.-]/g,'');
+      const n = Number(x);
+      return Number.isFinite(n) ? n : NaN;
+    }
+
+    function formatSmart(v){
+      const n = toNumber(v);
+      if(!Number.isFinite(n)) return String(v ?? '0');
+      const isInt = Math.abs(n % 1) < 1e-9;
+      return new Intl.NumberFormat(undefined, {
+        minimumFractionDigits: isInt ? 0 : 2,
+        maximumFractionDigits: isInt ? 0 : 2
+      }).format(n);
+    }
+
+    function formatMoney(v){ return `$${formatSmart(v)}`; }
+
+    function shiftInfo(item){
+      const change = Number(item && item.positionChange);
+      if(!Number.isFinite(change) || change === 0){
+        return { cls:'flat', symbol:'●', short:'Steady' };
+      }
+      const improved = change > 0;
+      return { cls: improved ? 'up' : 'down', symbol: improved ? '▲' : '▼', short: `${Math.abs(change)}` };
+    }
+
+    function rowFillPct(value, leaderValue){
+      const current = toNumber(value);
+      const lead = toNumber(leaderValue);
+      if(!Number.isFinite(current) || !Number.isFinite(lead) || lead <= 0) return 0;
+      return Math.max(0, Math.min(100, (current / lead) * 100));
+    }
+
+    function moveChipHTML(item){
+      const move = shiftInfo(item);
+      return `<span class="move-chip ${escHtml(move.cls)}">${escHtml(move.symbol)} ${escHtml(move.short)}</span>`;
+    }
+
+    function tableRowHTML(item, leaderValue){
+      const rank = Number(item && item.rank) || 0;
+      const fill = rowFillPct(item && item.value, leaderValue);
+      const name = cleanText(item && item.name || item && item.id || 'Unknown');
+      const location = cleanText(item && item.location || '—') || '—';
+      const yld = formatSmart(item && item.sales_yld_amount);
+      const sales = formatMoney(item && item.value);
+
+      return `
+        <div class="table-row rank-${escHtml(rank)}" style="--fill:${fill.toFixed(2)}%">
+          <div class="col-rank"><span class="rank-pill">#${escHtml(rank)}</span></div>
+          <div class="col-employee"><div class="emp-name" title="${escHtml(name)}">${escHtml(name)}</div></div>
+          <div class="col-location" title="${escHtml(location)}">${escHtml(location)}</div>
+          <div class="col-sales">${escHtml(sales)}</div>
+          <div class="col-move">${moveChipHTML(item)}</div>
+          <div class="col-yld">${escHtml(yld)}</div>
+        </div>
+      `;
+    }
+
+    function applyDensity(count){
+      const total = Number(count) || 0;
+      let density = 'normal';
+      if(total > 16) density = 'dense';
+      else if(total > 10) density = 'compact';
+      document.body.dataset.density = density;
+    }
+
+    function renderLeaderboard(data){
+      STATE.data = data || {};
+      const list = Array.isArray(data.rankings) ? data.rankings : [];
+      const tableEl = $('#overallTable');
+      ensureUrlState();
+
+      const compareDate = $('#compareDate');
+      if(compareDate) compareDate.textContent = data.previousDate ? labelDate(data.previousDate) : '—';
+
+      applyDensity(list.length);
+      if(!list.length){
+        tableEl.innerHTML = '<div class="status">No leaderboard data for the selected date.</div>';
+        return;
+      }
+
+      const leaderValue = list[0] ? list[0].value : null;
+      tableEl.style.gridTemplateRows = `repeat(${list.length}, minmax(0, 1fr))`;
+      tableEl.innerHTML = list.map(item => tableRowHTML(item, leaderValue)).join('');
+    }
+
+    function showError(msg, preserveCurrent){
+      setConnectionState('error', 'Connection issue');
+      if(preserveCurrent && STATE.data) return;
+      const el = $('#overallTable');
+      if(el) el.innerHTML = `<div class="status">${escHtml(msg)}</div>`;
+      const compareDate = $('#compareDate');
+      if(compareDate) compareDate.textContent = '—';
+    }
+
+    function resetRefreshTimer(){
+      if(STATE.timer) clearInterval(STATE.timer);
+      STATE.timer = setInterval(() => {
+        loadLeaderboard({ dateKey: STATE.dateKey, showLoading: false, preserveCurrentOnError: true, forceRefresh: true });
+      }, CONFIG.autoRefreshMs);
+    }
+
+    async function loadLeaderboard(options){
+      const opts = options || {};
+      bindPickers();
+      const requestedDate = normalizeDateKey(opts.dateKey || STATE.dateKey || getRequestedDate());
+      if(opts.showLoading !== false) setConnectionState('loading', 'Refreshing');
+
+      try{
+        const payload = await getPayload({ forceRefresh: !!opts.forceRefresh });
+        const rowsByDate = payload.rowsByDate || {};
+        const dates = payload.availableDates || [];
+        const selectedDate = dates.includes(requestedDate) ? requestedDate : (dates[0] || '');
+        const previousDate = getPreviousAvailableDate(selectedDate, dates);
+
+        STATE.dateKey = selectedDate;
+        setDateOptions(dates, selectedDate);
+
+        const rankings = buildLeaderboard(rowsByDate[selectedDate] || [], rowsByDate[previousDate] || []);
+        renderLeaderboard({ rankings, selectedDate, previousDate });
+        setConnectionState('live', payload.generated_at ? formatGeneratedAt(payload.generated_at) : 'Live');
+
+        if(!STATE.initialized){
+          STATE.initialized = true;
+          resetRefreshTimer();
+        }
+      }catch(err){
+        const msg = (err && err.message) ? err.message : String(err || 'Unknown error');
+        showError('Error loading leaderboard: ' + msg, !!opts.preserveCurrentOnError);
+      }
+    }
+
+    async function getPayload(opts = {}){
+      const now = Date.now();
+      if(!opts.forceRefresh && STATE.cache && (now - STATE.cacheAt) < CONFIG.cacheMs) return STATE.cache;
+      const url = getDataUrl() + (getDataUrl().includes('?') ? '&' : '?') + 'v=' + encodeURIComponent(String(now));
+      const res = await fetch(url, { cache: 'no-store' });
+      if(!res.ok) throw new Error(`Unable to load public leaderboard data (${res.status}).`);
+      const json = await res.json();
+      const rows = Array.isArray(json) ? json : (Array.isArray(json.rows) ? json.rows : []);
+      const rowsByDate = {};
+      for(const raw of rows){
+        const row = normalizeRow(raw);
+        if(!row.id || !row.date) continue;
+        rowsByDate[row.date] ||= {};
+        rowsByDate[row.date][row.id] = row;
+      }
+      const availableDates = Object.keys(rowsByDate).sort((a,b) => b.localeCompare(a));
+      const normalized = {};
+      for(const d of availableDates) normalized[d] = Object.values(rowsByDate[d]);
+      const payload = { generated_at: json.generated_at || '', availableDates, rowsByDate: normalized };
+      STATE.cache = payload;
+      STATE.cacheAt = now;
+      return payload;
+    }
+
+    function normalizeRow(raw){
+      const date = normalizeDateKey(raw.date || raw.Date || raw.DATE || raw.as_of_date);
+      return {
+        id: cleanText(raw.id || raw.ID || raw.EmpID || raw.emp_id).toUpperCase(),
+        location: cleanText(raw.location || raw.Location || raw.LocCode || raw.loc_code) || '—',
+        name: cleanText(raw.name || raw.Name || raw.agent_name || raw.AgentName) || 'Unknown',
+        sales_amount: raw.sales_amount ?? raw.SalesAmount ?? raw.salesAmount,
+        sales_rank: raw.sales_rank ?? raw.SalesRank ?? raw.salesRank,
+        sales_yld_amount: raw.sales_yld_amount ?? raw.salesYldAmount ?? raw.yld ?? raw.YLD,
+        date
+      };
+    }
+
+    function buildLeaderboard(currentRows, previousRows){
+      const prevRankById = {};
+      for(const row of previousRows){
+        const rank = toNumber(row.sales_rank);
+        if(row.id && Number.isFinite(rank)) prevRankById[row.id] = rank;
+      }
+
+      const items = currentRows.map(row => {
+        const valueNum = toNumber(row.sales_amount);
+        const rank = toNumber(row.sales_rank);
+        return {
+          id: row.id,
+          name: row.name,
+          location: row.location,
+          value: row.sales_amount,
+          valueNum,
+          rank: Number.isFinite(rank) ? rank : null,
+          sales_yld_amount: row.sales_yld_amount
+        };
+      }).filter(item => item.id && Number.isFinite(item.valueNum));
+
+      const hasRanks = items.some(item => Number.isFinite(item.rank));
+      if(hasRanks){
+        items.sort((a,b) => (a.rank ?? 999999) - (b.rank ?? 999999) || b.valueNum - a.valueNum || a.name.localeCompare(b.name));
+      }else{
+        items.sort((a,b) => b.valueNum - a.valueNum || a.name.localeCompare(b.name));
+        let previousValue = null;
+        let previousRank = 0;
+        for(let i=0; i<items.length; i++){
+          if(i === 0){ items[i].rank = 1; previousRank = 1; previousValue = items[i].valueNum; }
+          else if(items[i].valueNum === previousValue){ items[i].rank = previousRank; }
+          else { items[i].rank = previousRank + 1; previousRank = items[i].rank; previousValue = items[i].valueNum; }
+        }
+      }
+
+      for(const item of items){
+        const prevRank = prevRankById[item.id];
+        if(Number.isFinite(prevRank) && prevRank !== item.rank){
+          item.positionChange = prevRank - item.rank;
+        }
+        delete item.valueNum;
+      }
+      return items;
+    }
+
+    function normalizeDateKey(value){
+      if(value == null || value === '') return '';
+      const s = cleanText(value);
+      const iso = s.match(/^(\d{4})[-/.](\d{1,2})[-/.](\d{1,2})$/);
+      if(iso) return [pad(iso[1],4), pad(iso[2],2), pad(iso[3],2)].join('-');
+
+      const us = s.match(/^(\d{1,2})[-/.](\d{1,2})[-/.](\d{4})$/);
+      if(us) return [pad(us[3],4), pad(us[1],2), pad(us[2],2)].join('-');
+
+      const parsed = new Date(s);
+      if(!isNaN(parsed.getTime())) return `${parsed.getFullYear()}-${pad(parsed.getMonth()+1,2)}-${pad(parsed.getDate(),2)}`;
+      return '';
+    }
+
+    function labelDate(iso){
+      const m = String(iso || '').match(/^(\d{4})-(\d{2})-(\d{2})$/);
+      if(!m) return iso || '—';
+      return `${Number(m[2])}.${Number(m[3])}.${m[1]}`;
+    }
+
+    function getPreviousAvailableDate(selectedDate, dates){
+      const idx = dates.indexOf(selectedDate);
+      if(idx < 0 || idx >= dates.length - 1) return '';
+      return dates[idx + 1];
+    }
+
+    function formatGeneratedAt(value){
+      const d = new Date(value);
+      if(isNaN(d.getTime())) return String(value || 'Live');
+      return d.toLocaleString(undefined, { month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit' });
+    }
+
+    function pad(value, width){
+      let s = String(value || '');
+      while(s.length < width) s = '0' + s;
+      return s;
+    }
+
+    bindPickers();
+    loadLeaderboard({ showLoading: true, forceRefresh: true });
+  </script>
+</body>
+</html>
