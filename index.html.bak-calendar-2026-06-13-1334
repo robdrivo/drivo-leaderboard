@@ -173,8 +173,8 @@
     }
 
     .picker{
-      appearance:none;
-      -webkit-appearance:none;
+      appearance:auto;
+      -webkit-appearance:auto;
       cursor:pointer;
       min-width:10.5vw;
       padding-right:1vw;
@@ -182,182 +182,7 @@
       outline:none;
     }
 
-    .date-picker{
-      position:relative;
-      display:inline-flex;
-    }
-
-    .calendar-toggle{
-      border:1px solid var(--stroke);
-      font-family:inherit;
-      justify-content:space-between;
-      min-width:12.2vw;
-    }
-
-    .calendar-toggle:focus-visible,
-    .cal-nav:focus-visible,
-    .cal-day:focus-visible{
-      outline:2px solid rgba(13, 28, 164, .24);
-      outline-offset:2px;
-    }
-
-    .calendar-ico{
-      color:var(--accent);
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      width:1.2em;
-      height:1.2em;
-      flex:0 0 auto;
-    }
-
-    .calendar-caret{
-      color:var(--muted-2);
-      font-size:.95em;
-      line-height:1;
-      transition:transform .18s ease;
-    }
-
-    .date-picker[data-open="true"] .calendar-caret{
-      transform:rotate(180deg);
-    }
-
-    .calendar-popover{
-      position:absolute;
-      top:calc(100% + .75vh);
-      right:0;
-      width:min(21.5vw, 328px);
-      min-width:292px;
-      border:1px solid rgba(200, 212, 226, .95);
-      border-radius:24px;
-      background:rgba(255,255,255,.98);
-      box-shadow:0 24px 70px rgba(15, 23, 42, .16);
-      padding:1.05vh .8vw .95vh;
-      z-index:50;
-      color:var(--text);
-    }
-
-    .calendar-popover[hidden]{display:none}
-
-    .cal-header{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:.6vw;
-      padding:.2vh .15vw .85vh;
-    }
-
-    .cal-title{
-      font-size:1.35vh;
-      font-weight:700;
-      letter-spacing:.01em;
-      color:var(--text);
-      text-align:center;
-      flex:1;
-    }
-
-    .cal-nav{
-      width:3.25vh;
-      height:3.25vh;
-      border-radius:999px;
-      border:1px solid var(--stroke);
-      background:var(--surface-2);
-      color:var(--accent);
-      font-family:inherit;
-      font-size:1.55vh;
-      font-weight:700;
-      cursor:pointer;
-      display:grid;
-      place-items:center;
-      transition:background .18s ease, border-color .18s ease, transform .18s ease;
-    }
-
-    .cal-nav:hover:not(:disabled){
-      background:var(--accent-soft);
-      border-color:rgba(13, 28, 164, .22);
-      transform:translateY(-1px);
-    }
-
-    .cal-nav:disabled{
-      opacity:.35;
-      cursor:not-allowed;
-    }
-
-    .cal-weekdays,
-    .cal-grid{
-      display:grid;
-      grid-template-columns:repeat(7, minmax(0, 1fr));
-      gap:.38vh;
-    }
-
-    .cal-weekdays{
-      margin-bottom:.45vh;
-      color:var(--muted-2);
-      font-size:.9vh;
-      font-weight:700;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      text-align:center;
-    }
-
-    .cal-weekdays span{
-      padding:.42vh 0;
-    }
-
-    .cal-day,
-    .cal-empty{
-      height:3.85vh;
-      border-radius:14px;
-    }
-
-    .cal-day{
-      border:1px solid transparent;
-      background:transparent;
-      color:var(--muted-2);
-      font-family:inherit;
-      font-size:1.15vh;
-      font-weight:650;
-      cursor:not-allowed;
-      opacity:.42;
-      transition:background .18s ease, color .18s ease, border-color .18s ease, transform .18s ease, box-shadow .18s ease;
-    }
-
-    .cal-day.is-available{
-      cursor:pointer;
-      opacity:1;
-      color:var(--text);
-      background:var(--surface-2);
-      border-color:var(--stroke);
-    }
-
-    .cal-day.is-available:hover{
-      background:var(--accent-soft);
-      border-color:rgba(13, 28, 164, .22);
-      color:var(--accent);
-      transform:translateY(-1px);
-    }
-
-    .cal-day.is-selected{
-      background:var(--accent);
-      border-color:var(--accent);
-      color:#fff;
-      box-shadow:0 10px 26px rgba(13, 28, 164, .24);
-    }
-
-    .cal-day.is-selected:hover{
-      background:var(--accent);
-      color:#fff;
-    }
-
-    .cal-footnote{
-      margin-top:.85vh;
-      padding-top:.75vh;
-      border-top:1px solid var(--stroke);
-      color:var(--muted);
-      font-size:.95vh;
-      font-weight:600;
-      text-align:center;
-    }
+    .picker option{color:#101828}
 
     .table-wrap{
       min-height:0;
@@ -607,16 +432,6 @@
         justify-content:flex-start;
       }
 
-      .calendar-popover{
-        right:auto;
-        left:0;
-        width:320px;
-      }
-
-      .calendar-toggle{
-        min-width:180px;
-      }
-
       .table-head,
       .table-row{
         grid-template-columns:7vw minmax(0, 2fr) minmax(0, .9fr) minmax(0, .9fr) minmax(0, .65fr) minmax(0, .8fr) minmax(0, .85fr);
@@ -635,27 +450,9 @@
         <div class="header-controls">
           <div class="meta-chip"><span>Compare</span><strong id="compareDate">—</strong></div>
           <div class="meta-chip live" id="connectionState" data-state="loading"><span>Updated</span><strong id="refreshStamp">Loading</strong></div>
-          <div class="date-picker" id="calendarPicker" data-open="false">
-            <button type="button" id="datePickerToggle" class="picker calendar-toggle" aria-label="Select leaderboard date" aria-expanded="false" aria-controls="calendarPopover">
-              <span class="calendar-ico" aria-hidden="true">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M7 2.75V5.25M17 2.75V5.25M3.75 9.25H20.25M5.75 4.25H18.25C19.3546 4.25 20.25 5.14543 20.25 6.25V18.25C20.25 19.3546 19.3546 20.25 18.25 20.25H5.75C4.64543 20.25 3.75 19.3546 3.75 18.25V6.25C3.75 5.14543 4.64543 4.25 5.75 4.25Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-                </svg>
-              </span>
-              <span id="datePickerLabel">Loading…</span>
-              <span class="calendar-caret" aria-hidden="true">⌄</span>
-            </button>
-            <div class="calendar-popover" id="calendarPopover" hidden>
-              <div class="cal-header">
-                <button type="button" class="cal-nav" id="calPrev" aria-label="Previous month">‹</button>
-                <div class="cal-title" id="calTitle">—</div>
-                <button type="button" class="cal-nav" id="calNext" aria-label="Next month">›</button>
-              </div>
-              <div class="cal-weekdays" aria-hidden="true"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div>
-              <div class="cal-grid" id="calGrid" role="grid" aria-label="Available leaderboard dates"></div>
-              <div class="cal-footnote" id="calFootnote">Only generated leaderboard dates are selectable</div>
-            </div>
-          </div>
+          <select id="datePicker" class="picker" aria-label="Select leaderboard date">
+            <option value="">Loading…</option>
+          </select>
         </div>
       </header>
 
@@ -690,10 +487,7 @@
       timer: null,
       initialized: false,
       cache: null,
-      cacheAt: 0,
-      availableDates: [],
-      calendarMonth: '',
-      calendarOpen: false
+      cacheAt: 0
     };
 
     function escHtml(s){
@@ -733,155 +527,29 @@
     }
 
     function setDateOptions(dates, selectedKey){
+      const select = $('#datePicker');
+      if(!select) return;
       const list = Array.isArray(dates) ? dates : [];
-      const selected = list.includes(selectedKey) ? selectedKey : (list[0] || '');
-      STATE.availableDates = list;
-
-      const label = $('#datePickerLabel');
-      const toggle = $('#datePickerToggle');
-      if(label) label.textContent = selected ? labelDate(selected) : 'No dates';
-      if(toggle) toggle.disabled = !list.length;
-
-      if(selected && !STATE.calendarMonth) STATE.calendarMonth = selected.slice(0, 7);
-      if(selected && !hasAvailableDateInMonth(STATE.calendarMonth)) STATE.calendarMonth = selected.slice(0, 7);
-      renderCalendar();
+      if(!list.length){
+        select.innerHTML = '<option value="">No dates</option>';
+        select.disabled = true;
+        return;
+      }
+      select.disabled = false;
+      select.innerHTML = list.map(d => `<option value="${escHtml(d)}">${escHtml(labelDate(d))}</option>`).join('');
+      select.value = list.includes(selectedKey) ? selectedKey : list[0];
     }
 
     function bindPickers(){
-      const picker = $('#calendarPicker');
-      const toggle = $('#datePickerToggle');
-      const popover = $('#calendarPopover');
-      const prev = $('#calPrev');
-      const next = $('#calNext');
-      const grid = $('#calGrid');
-
-      if(toggle && toggle.dataset.bound !== '1'){
-        toggle.dataset.bound = '1';
-        toggle.addEventListener('click', () => setCalendarOpen(!STATE.calendarOpen));
-        toggle.addEventListener('keydown', (e) => {
-          if(e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' '){
-            e.preventDefault();
-            setCalendarOpen(true);
-          }
-        });
-      }
-
-      if(prev && prev.dataset.bound !== '1'){
-        prev.dataset.bound = '1';
-        prev.addEventListener('click', () => changeCalendarMonth(-1));
-      }
-
-      if(next && next.dataset.bound !== '1'){
-        next.dataset.bound = '1';
-        next.addEventListener('click', () => changeCalendarMonth(1));
-      }
-
-      if(grid && grid.dataset.bound !== '1'){
-        grid.dataset.bound = '1';
-        grid.addEventListener('click', (e) => {
-          const btn = e.target.closest('[data-date]');
-          if(!btn || btn.disabled) return;
-          const nextDate = cleanText(btn.dataset.date);
-          if(!nextDate || nextDate === STATE.dateKey){
-            setCalendarOpen(false);
-            return;
-          }
-          setCalendarOpen(false);
+      const datePicker = $('#datePicker');
+      if(datePicker && datePicker.dataset.bound !== '1'){
+        datePicker.dataset.bound = '1';
+        datePicker.addEventListener('change', () => {
+          const nextDate = cleanText(datePicker.value);
+          if(nextDate === STATE.dateKey) return;
           loadLeaderboard({ dateKey: nextDate, showLoading: false, forceRefresh: false });
         });
       }
-
-      if(!document.documentElement.dataset.calendarBound){
-        document.documentElement.dataset.calendarBound = '1';
-        document.addEventListener('click', (e) => {
-          if(!STATE.calendarOpen) return;
-          if(picker && picker.contains(e.target)) return;
-          setCalendarOpen(false);
-        });
-        document.addEventListener('keydown', (e) => {
-          if(e.key === 'Escape') setCalendarOpen(false);
-        });
-      }
-    }
-
-    function setCalendarOpen(open){
-      STATE.calendarOpen = !!open;
-      const picker = $('#calendarPicker');
-      const toggle = $('#datePickerToggle');
-      const popover = $('#calendarPopover');
-      if(picker) picker.dataset.open = STATE.calendarOpen ? 'true' : 'false';
-      if(toggle) toggle.setAttribute('aria-expanded', STATE.calendarOpen ? 'true' : 'false');
-      if(popover) popover.hidden = !STATE.calendarOpen;
-      if(STATE.calendarOpen) renderCalendar();
-    }
-
-    function renderCalendar(){
-      const grid = $('#calGrid');
-      const title = $('#calTitle');
-      const prev = $('#calPrev');
-      const next = $('#calNext');
-      const footnote = $('#calFootnote');
-      if(!grid) return;
-
-      const dates = STATE.availableDates || [];
-      if(!dates.length){
-        grid.innerHTML = '';
-        if(title) title.textContent = 'No dates';
-        if(prev) prev.disabled = true;
-        if(next) next.disabled = true;
-        if(footnote) footnote.textContent = 'No generated leaderboard dates yet';
-        return;
-      }
-
-      if(!STATE.calendarMonth) STATE.calendarMonth = (STATE.dateKey || dates[0]).slice(0, 7);
-      const [year, month] = STATE.calendarMonth.split('-').map(Number);
-      const monthDate = new Date(year, month - 1, 1);
-      if(title){
-        title.textContent = monthDate.toLocaleDateString(undefined, { month:'long', year:'numeric' });
-      }
-
-      const firstDay = new Date(year, month - 1, 1).getDay();
-      const daysInMonth = new Date(year, month, 0).getDate();
-      const available = new Set(dates);
-      const cells = [];
-
-      for(let i=0; i<firstDay; i++) cells.push('<div class="cal-empty" aria-hidden="true"></div>');
-      for(let day=1; day<=daysInMonth; day++){
-        const key = `${year}-${pad(month, 2)}-${pad(day, 2)}`;
-        const isAvailable = available.has(key);
-        const isSelected = key === STATE.dateKey;
-        const cls = ['cal-day'];
-        if(isAvailable) cls.push('is-available');
-        if(isSelected) cls.push('is-selected');
-        cells.push(`<button type="button" class="${cls.join(' ')}" data-date="${escHtml(key)}" ${isAvailable ? '' : 'disabled'} aria-label="${escHtml(labelDate(key))}">${day}</button>`);
-      }
-
-      grid.innerHTML = cells.join('');
-      if(prev) prev.disabled = !hasAvailableDateBeforeMonth(STATE.calendarMonth);
-      if(next) next.disabled = !hasAvailableDateAfterMonth(STATE.calendarMonth);
-      if(footnote) footnote.textContent = `${dates.length} generated date${dates.length === 1 ? '' : 's'} available`;
-    }
-
-    function changeCalendarMonth(offset){
-      const base = STATE.calendarMonth || (STATE.dateKey || (STATE.availableDates || [])[0] || '').slice(0, 7);
-      if(!base) return;
-      const [year, month] = base.split('-').map(Number);
-      const d = new Date(year, month - 1 + offset, 1);
-      STATE.calendarMonth = `${d.getFullYear()}-${pad(d.getMonth() + 1, 2)}`;
-      renderCalendar();
-    }
-
-    function hasAvailableDateInMonth(monthKey){
-      if(!monthKey) return false;
-      return (STATE.availableDates || []).some(d => String(d).startsWith(monthKey));
-    }
-
-    function hasAvailableDateBeforeMonth(monthKey){
-      return (STATE.availableDates || []).some(d => String(d).slice(0, 7) < monthKey);
-    }
-
-    function hasAvailableDateAfterMonth(monthKey){
-      return (STATE.availableDates || []).some(d => String(d).slice(0, 7) > monthKey);
     }
 
     function toNumber(v){
@@ -1062,7 +730,7 @@
         name: cleanText(raw.name || raw.Name || raw.agent_name || raw.AgentName) || 'Unknown',
         sales_amount: raw.sales_amount ?? raw.SalesAmount ?? raw.salesAmount,
         sales_rank: raw.sales_rank ?? raw.SalesRank ?? raw.salesRank,
-        ra_count: raw.ra_count ?? raw.RACount ?? raw.raCount ?? raw.rental_agreements ?? raw.RentalAgreements,
+        ra_count: raw.ra_count ?? raw.RACount ?? raw.raCount ?? raw.ra_count ?? raw.rental_agreements ?? raw.RentalAgreements,
         sales_yld_amount: raw.sales_yld_amount ?? raw.salesYldAmount ?? raw.yld ?? raw.YLD,
         date
       };
