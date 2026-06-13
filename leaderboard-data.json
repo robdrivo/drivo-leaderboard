@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-13T07:10:33-04:00",
+  "generated_at": "2026-06-13T10:22:06-04:00",
   "row_count": 676,
   "rows": [
     {
@@ -1448,6 +1448,7 @@
       "name": "SHENOUDA H",
       "sales_amount": 27755.63,
       "sales_rank": 1,
+      "ra_count": 195,
       "sales_yld_amount": 33.16,
       "date": "6.12.2026"
     },
@@ -1457,6 +1458,7 @@
       "name": "DONIYOR A",
       "sales_amount": 27573.18,
       "sales_rank": 2,
+      "ra_count": 149,
       "sales_yld_amount": 36.33,
       "date": "6.12.2026"
     },
@@ -1466,6 +1468,7 @@
       "name": "AKMAL J",
       "sales_amount": 25039.25,
       "sales_rank": 3,
+      "ra_count": 126,
       "sales_yld_amount": 37.88,
       "date": "6.12.2026"
     },
@@ -1475,6 +1478,7 @@
       "name": "DIYOR S",
       "sales_amount": 25027.87,
       "sales_rank": 4,
+      "ra_count": 192,
       "sales_yld_amount": 35.15,
       "date": "6.12.2026"
     },
@@ -1484,6 +1488,7 @@
       "name": "KHADDY G",
       "sales_amount": 24427.25,
       "sales_rank": 5,
+      "ra_count": 184,
       "sales_yld_amount": 27.57,
       "date": "6.12.2026"
     },
@@ -1493,6 +1498,7 @@
       "name": "AMIL J",
       "sales_amount": 22659.28,
       "sales_rank": 6,
+      "ra_count": 174,
       "sales_yld_amount": 26.53,
       "date": "6.12.2026"
     },
@@ -1502,6 +1508,7 @@
       "name": "AKBAR U",
       "sales_amount": 22130.84,
       "sales_rank": 7,
+      "ra_count": 144,
       "sales_yld_amount": 28.85,
       "date": "6.12.2026"
     },
@@ -1511,6 +1518,7 @@
       "name": "LAZIZ A",
       "sales_amount": 20897.79,
       "sales_rank": 8,
+      "ra_count": 161,
       "sales_yld_amount": 24.82,
       "date": "6.12.2026"
     },
@@ -1520,6 +1528,7 @@
       "name": "CHOWDHURY D",
       "sales_amount": 18171.82,
       "sales_rank": 9,
+      "ra_count": 135,
       "sales_yld_amount": 32.28,
       "date": "6.12.2026"
     },
@@ -1529,6 +1538,7 @@
       "name": "JAVOHIR S",
       "sales_amount": 17302.9,
       "sales_rank": 10,
+      "ra_count": 75,
       "sales_yld_amount": 43.69,
       "date": "6.12.2026"
     },
@@ -1538,6 +1548,7 @@
       "name": "NIGORA G",
       "sales_amount": 13666.08,
       "sales_rank": 11,
+      "ra_count": 136,
       "sales_yld_amount": 24.71,
       "date": "6.12.2026"
     },
@@ -1547,6 +1558,7 @@
       "name": "JAWAAD R",
       "sales_amount": 11512.31,
       "sales_rank": 12,
+      "ra_count": 76,
       "sales_yld_amount": 27.35,
       "date": "6.12.2026"
     },
@@ -1556,6 +1568,7 @@
       "name": "OMAR S",
       "sales_amount": 11511.14,
       "sales_rank": 13,
+      "ra_count": 81,
       "sales_yld_amount": 29.22,
       "date": "6.12.2026"
     },
@@ -1565,6 +1578,7 @@
       "name": "JALOL A",
       "sales_amount": 10587.73,
       "sales_rank": 14,
+      "ra_count": 102,
       "sales_yld_amount": 29.82,
       "date": "6.12.2026"
     },
@@ -1574,6 +1588,7 @@
       "name": "DIANA B",
       "sales_amount": 9791.2,
       "sales_rank": 15,
+      "ra_count": 74,
       "sales_yld_amount": 27.5,
       "date": "6.12.2026"
     },
@@ -1583,6 +1598,7 @@
       "name": "LABIB A",
       "sales_amount": 8097.6,
       "sales_rank": 16,
+      "ra_count": 90,
       "sales_yld_amount": 24.32,
       "date": "6.12.2026"
     },
@@ -1592,6 +1608,7 @@
       "name": "AMIRKHON F",
       "sales_amount": 7129.27,
       "sales_rank": 17,
+      "ra_count": 65,
       "sales_yld_amount": 36.01,
       "date": "6.12.2026"
     },
@@ -1601,6 +1618,7 @@
       "name": "HIMANSHU B",
       "sales_amount": 0.0,
       "sales_rank": 18,
+      "ra_count": 0,
       "sales_yld_amount": 0.0,
       "date": "6.12.2026"
     },
@@ -1610,6 +1628,7 @@
       "name": "ALEXANDER Z",
       "sales_amount": 0.0,
       "sales_rank": 18,
+      "ra_count": 0,
       "sales_yld_amount": 0.0,
       "date": "6.12.2026"
     },

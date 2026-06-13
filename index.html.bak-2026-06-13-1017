@@ -195,7 +195,7 @@
     .table-head,
     .table-row{
       display:grid;
-      grid-template-columns:7vw minmax(0, 2.25fr) minmax(0, .95fr) minmax(0, .9fr) minmax(0, .65fr) minmax(0, .8fr) minmax(0, .9fr);
+      grid-template-columns:8vw minmax(0, 2.45fr) minmax(0, 1.15fr) minmax(0, .95fr) minmax(0, .9fr) minmax(0, 1.05fr);
       column-gap:1vw;
       align-items:center;
     }
@@ -209,12 +209,8 @@
       letter-spacing:.16em;
     }
 
-    .table-head > div:nth-child(5),
-    .table-head > div:nth-child(6){
-      text-align:center;
-    }
-
-    .table-head > div:last-child{
+    .table-head > div:last-child,
+    .table-head > div:nth-last-child(2){
       text-align:right;
     }
 
@@ -332,7 +328,6 @@
     }
 
     .col-location,
-    .col-ra,
     .col-yld{
       color:var(--muted);
       font-size:var(--meta-size);
@@ -340,13 +335,6 @@
       white-space:nowrap;
       overflow:hidden;
       text-overflow:ellipsis;
-    }
-
-    .col-ra{
-      color:var(--text);
-      text-align:center;
-      font-variant-numeric:tabular-nums;
-      font-weight:600;
     }
 
     .col-move{
@@ -434,7 +422,7 @@
 
       .table-head,
       .table-row{
-        grid-template-columns:7vw minmax(0, 2fr) minmax(0, .9fr) minmax(0, .9fr) minmax(0, .65fr) minmax(0, .8fr) minmax(0, .85fr);
+        grid-template-columns:7vw minmax(0, 2.2fr) minmax(0, 1fr) minmax(0, .95fr) minmax(0, .85fr) minmax(0, .95fr);
       }
     }
   </style>
@@ -462,8 +450,7 @@
           <div>Name</div>
           <div>Location</div>
           <div>Sales</div>
-          <div style="text-align: center;">R/A</div>
-          <div style="text-align: center;">Move</div>
+          <div style="text-align: -webkit-center;">Move</div>
           <div>YLD</div>
         </div>
         <div class="table-body" id="overallTable">
@@ -608,7 +595,6 @@
       const name = cleanText(item && item.name || item && item.id || 'Unknown');
       const location = cleanText(item && item.location || '—') || '—';
       const yld = formatSmart(item && item.sales_yld_amount);
-      const ra = formatSmart(item && item.ra_count);
       const sales = formatMoney(item && item.value);
 
       return `
@@ -617,7 +603,6 @@
           <div class="col-employee"><div class="emp-name" title="${escHtml(name)}">${escHtml(name)}</div></div>
           <div class="col-location" title="${escHtml(location)}">${escHtml(location)}</div>
           <div class="col-sales">${escHtml(sales)}</div>
-          <div class="col-ra">${escHtml(ra)}</div>
           <div class="col-move">${moveChipHTML(item)}</div>
           <div class="col-yld">${escHtml(yld)}</div>
         </div>
@@ -730,7 +715,6 @@
         name: cleanText(raw.name || raw.Name || raw.agent_name || raw.AgentName) || 'Unknown',
         sales_amount: raw.sales_amount ?? raw.SalesAmount ?? raw.salesAmount,
         sales_rank: raw.sales_rank ?? raw.SalesRank ?? raw.salesRank,
-        ra_count: raw.ra_count ?? raw.RACount ?? raw.raCount ?? raw.ra_count ?? raw.rental_agreements ?? raw.RentalAgreements,
         sales_yld_amount: raw.sales_yld_amount ?? raw.salesYldAmount ?? raw.yld ?? raw.YLD,
         date
       };
@@ -753,7 +737,6 @@
           value: row.sales_amount,
           valueNum,
           rank: Number.isFinite(rank) ? rank : null,
-          ra_count: row.ra_count,
           sales_yld_amount: row.sales_yld_amount
         };
       }).filter(item => item.id && Number.isFinite(item.valueNum));
