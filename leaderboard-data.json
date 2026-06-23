@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-22T07:10:07-04:00",
-  "row_count": 844,
+  "generated_at": "2026-06-23T07:10:08-04:00",
+  "row_count": 862,
   "rows": [
     {
       "id": "222",
@@ -1261,6 +1261,186 @@
       "sales_rank": 19,
       "sales_yld_amount": 0.0,
       "date": "6.3.2026"
+    },
+    {
+      "id": "19",
+      "location": "EWR",
+      "name": "SHENOUDA H",
+      "sales_amount": 56054.3,
+      "sales_rank": 1,
+      "ra_count": 374,
+      "sales_yld_amount": 32.68,
+      "date": "6.22.2026"
+    },
+    {
+      "id": "222",
+      "location": "LGA",
+      "name": "DONIYOR A",
+      "sales_amount": 51275.91,
+      "sales_rank": 2,
+      "ra_count": 303,
+      "sales_yld_amount": 35.56,
+      "date": "6.22.2026"
+    },
+    {
+      "id": "418",
+      "location": "BRKJS",
+      "name": "DIYOR S",
+      "sales_amount": 50500.65,
+      "sales_rank": 3,
+      "ra_count": 349,
+      "sales_yld_amount": 35.46,
+      "date": "6.22.2026"
+    },
+    {
+      "id": "424",
+      "location": "JFK",
+      "name": "LAZIZ A",
+      "sales_amount": 50462.94,
+      "sales_rank": 4,
+      "ra_count": 350,
+      "sales_yld_amount": 28.0,
+      "date": "6.22.2026"
+    },
+    {
+      "id": "180",
+      "location": "LGA",
+      "name": "AKMAL J",
+      "sales_amount": 48503.95,
+      "sales_rank": 5,
+      "ra_count": 245,
+      "sales_yld_amount": 35.51,
+      "date": "6.22.2026"
+    },
+    {
+      "id": "85",
+      "location": "JFK",
+      "name": "AKBAR U",
+      "sales_amount": 46179.29,
+      "sales_rank": 6,
+      "ra_count": 303,
+      "sales_yld_amount": 28.06,
+      "date": "6.22.2026"
+    },
+    {
+      "id": "116",
+      "location": "EWR",
+      "name": "KHADDY G",
+      "sales_amount": 42294.88,
+      "sales_rank": 7,
+      "ra_count": 319,
+      "sales_yld_amount": 27.61,
+      "date": "6.22.2026"
+    },
+    {
+      "id": "441",
+      "location": "EWR",
+      "name": "AMIL J",
+      "sales_amount": 39575.35,
+      "sales_rank": 8,
+      "ra_count": 314,
+      "sales_yld_amount": 25.6,
+      "date": "6.22.2026"
+    },
+    {
+      "id": "439",
+      "location": "BRK",
+      "name": "JAVOHIR S",
+      "sales_amount": 31740.92,
+      "sales_rank": 9,
+      "ra_count": 158,
+      "sales_yld_amount": 40.54,
+      "date": "6.22.2026"
+    },
+    {
+      "id": "495",
+      "location": "LGA",
+      "name": "CHOWDHURY D",
+      "sales_amount": 31584.89,
+      "sales_rank": 10,
+      "ra_count": 218,
+      "sales_yld_amount": 34.52,
+      "date": "6.22.2026"
+    },
+    {
+      "id": "999",
+      "location": "LGA",
+      "name": "OMAR S",
+      "sales_amount": 26589.4,
+      "sales_rank": 11,
+      "ra_count": 193,
+      "sales_yld_amount": 33.57,
+      "date": "6.22.2026"
+    },
+    {
+      "id": "165",
+      "location": "LGA",
+      "name": "JALOL A",
+      "sales_amount": 25556.25,
+      "sales_rank": 12,
+      "ra_count": 249,
+      "sales_yld_amount": 27.57,
+      "date": "6.22.2026"
+    },
+    {
+      "id": "13",
+      "location": "EWR",
+      "name": "NIGORA G",
+      "sales_amount": 24171.02,
+      "sales_rank": 13,
+      "ra_count": 224,
+      "sales_yld_amount": 25.69,
+      "date": "6.22.2026"
+    },
+    {
+      "id": "29",
+      "location": "JFK",
+      "name": "DIANA B",
+      "sales_amount": 23646.6,
+      "sales_rank": 14,
+      "ra_count": 151,
+      "sales_yld_amount": 30.47,
+      "date": "6.22.2026"
+    },
+    {
+      "id": "491",
+      "location": "JFK",
+      "name": "JAWAAD R",
+      "sales_amount": 19721.81,
+      "sales_rank": 15,
+      "ra_count": 122,
+      "sales_yld_amount": 27.43,
+      "date": "6.22.2026"
+    },
+    {
+      "id": "485",
+      "location": "LGA",
+      "name": "LABIB A",
+      "sales_amount": 16972.95,
+      "sales_rank": 16,
+      "ra_count": 185,
+      "sales_yld_amount": 22.78,
+      "date": "6.22.2026"
+    },
+    {
+      "id": "513",
+      "location": "BRK",
+      "name": "AMIRKHON F",
+      "sales_amount": 13253.58,
+      "sales_rank": 17,
+      "ra_count": 110,
+      "sales_yld_amount": 34.16,
+      "date": "6.22.2026"
+    },
+    {
+      "id": "419",
+      "location": "JFK",
+      "name": "HIMANSHU B",
+      "sales_amount": 0.0,
+      "sales_rank": 18,
+      "ra_count": 0,
+      "sales_yld_amount": 0.0,
+      "date": "6.22.2026"
     },
     {
       "id": "19",
