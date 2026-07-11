@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-07-10T07:10:11-04:00",
-  "row_count": 1186,
+  "generated_at": "2026-07-11T07:10:22-04:00",
+  "row_count": 1206,
   "rows": [
     {
       "id": "85",
@@ -1631,6 +1631,206 @@
       "ra_count": 0,
       "sales_yld_amount": 0.0,
       "date": "7.2.2026"
+    },
+    {
+      "id": "85",
+      "location": "JFK",
+      "name": "AKBAR U",
+      "sales_amount": 29647.52,
+      "sales_rank": 1,
+      "ra_count": 196,
+      "sales_yld_amount": 28.78,
+      "date": "7.10.2026"
+    },
+    {
+      "id": "441",
+      "location": "EWR",
+      "name": "AMIL J",
+      "sales_amount": 28114.96,
+      "sales_rank": 2,
+      "ra_count": 167,
+      "sales_yld_amount": 30.33,
+      "date": "7.10.2026"
+    },
+    {
+      "id": "180",
+      "location": "LGA",
+      "name": "AKMAL J",
+      "sales_amount": 27731.1,
+      "sales_rank": 3,
+      "ra_count": 145,
+      "sales_yld_amount": 30.57,
+      "date": "7.10.2026"
+    },
+    {
+      "id": "165",
+      "location": "LGA",
+      "name": "JALOL A",
+      "sales_amount": 23314.94,
+      "sales_rank": 4,
+      "ra_count": 133,
+      "sales_yld_amount": 34.44,
+      "date": "7.10.2026"
+    },
+    {
+      "id": "495",
+      "location": "LGA",
+      "name": "CHOWDHURY D",
+      "sales_amount": 22171.19,
+      "sales_rank": 5,
+      "ra_count": 136,
+      "sales_yld_amount": 33.19,
+      "date": "7.10.2026"
+    },
+    {
+      "id": "19",
+      "location": "EWR",
+      "name": "SHENOUDA H",
+      "sales_amount": 20690.34,
+      "sales_rank": 6,
+      "ra_count": 125,
+      "sales_yld_amount": 37.48,
+      "date": "7.10.2026"
+    },
+    {
+      "id": "116",
+      "location": "EWR",
+      "name": "KHADDY G",
+      "sales_amount": 20511.89,
+      "sales_rank": 7,
+      "ra_count": 144,
+      "sales_yld_amount": 30.3,
+      "date": "7.10.2026"
+    },
+    {
+      "id": "418",
+      "location": "BRKJS",
+      "name": "DIYOR S",
+      "sales_amount": 17713.38,
+      "sales_rank": 8,
+      "ra_count": 91,
+      "sales_yld_amount": 34.94,
+      "date": "7.10.2026"
+    },
+    {
+      "id": "999",
+      "location": "LGA",
+      "name": "OMAR S",
+      "sales_amount": 16926.06,
+      "sales_rank": 9,
+      "ra_count": 103,
+      "sales_yld_amount": 32.43,
+      "date": "7.10.2026"
+    },
+    {
+      "id": "222",
+      "location": "EWR",
+      "name": "DONIYOR A",
+      "sales_amount": 16382.11,
+      "sales_rank": 10,
+      "ra_count": 84,
+      "sales_yld_amount": 40.15,
+      "date": "7.10.2026"
+    },
+    {
+      "id": "439",
+      "location": "BRK",
+      "name": "JAVOHIR S",
+      "sales_amount": 12023.9,
+      "sales_rank": 11,
+      "ra_count": 56,
+      "sales_yld_amount": 44.04,
+      "date": "7.10.2026"
+    },
+    {
+      "id": "29",
+      "location": "JFK",
+      "name": "DIANA B",
+      "sales_amount": 11834.56,
+      "sales_rank": 12,
+      "ra_count": 71,
+      "sales_yld_amount": 32.6,
+      "date": "7.10.2026"
+    },
+    {
+      "id": "513",
+      "location": "BRK",
+      "name": "AMIRKHON F",
+      "sales_amount": 10733.11,
+      "sales_rank": 13,
+      "ra_count": 69,
+      "sales_yld_amount": 38.2,
+      "date": "7.10.2026"
+    },
+    {
+      "id": "485",
+      "location": "LGA",
+      "name": "LABIB A",
+      "sales_amount": 10694.02,
+      "sales_rank": 14,
+      "ra_count": 78,
+      "sales_yld_amount": 28.52,
+      "date": "7.10.2026"
+    },
+    {
+      "id": "13",
+      "location": "EWR",
+      "name": "NIGORA G",
+      "sales_amount": 10652.57,
+      "sales_rank": 15,
+      "ra_count": 109,
+      "sales_yld_amount": 22.19,
+      "date": "7.10.2026"
+    },
+    {
+      "id": "491",
+      "location": "JFK",
+      "name": "JAWAAD R",
+      "sales_amount": 6238.68,
+      "sales_rank": 16,
+      "ra_count": 41,
+      "sales_yld_amount": 34.85,
+      "date": "7.10.2026"
+    },
+    {
+      "id": "424",
+      "location": "JFK",
+      "name": "LAZIZ A",
+      "sales_amount": 4028.47,
+      "sales_rank": 17,
+      "ra_count": 19,
+      "sales_yld_amount": 17.52,
+      "date": "7.10.2026"
+    },
+    {
+      "id": "521",
+      "location": "JFK",
+      "name": "ABDURREHAMN A",
+      "sales_amount": 408.76,
+      "sales_rank": 18,
+      "ra_count": 9,
+      "sales_yld_amount": 10.48,
+      "date": "7.10.2026"
+    },
+    {
+      "id": "532",
+      "location": "BRKJS",
+      "name": "DAYNA S",
+      "sales_amount": 0.0,
+      "sales_rank": 19,
+      "ra_count": 0,
+      "sales_yld_amount": 0.0,
+      "date": "7.10.2026"
+    },
+    {
+      "id": "536",
+      "location": "JFK",
+      "name": "MUKHAMMAD K",
+      "sales_amount": 0.0,
+      "sales_rank": 19,
+      "ra_count": 0,
+      "sales_yld_amount": 0.0,
+      "date": "7.10.2026"
     },
     {
       "id": "116",
