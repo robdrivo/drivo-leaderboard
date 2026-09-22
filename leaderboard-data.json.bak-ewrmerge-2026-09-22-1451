@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-22T14:52:49-04:00",
+  "generated_at": "2026-09-22T07:11:34-04:00",
   "row_count": 2600,
   "rows": [
     {
@@ -92,10 +92,10 @@
       "name": "JALOL A",
       "sales_amount": 28942.3,
       "sales_rank": 8,
-      "ra_count": 253,
+      "ra_count": 254,
       "confirmed_cases": 0,
       "disqualified": false,
-      "sales_yld_amount": 25.57,
+      "sales_yld_amount": 24.95,
       "date": "9.21.2026"
     },
     {
